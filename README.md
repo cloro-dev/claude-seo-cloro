@@ -6,8 +6,8 @@ whether the answer mentions or cites your brand. It uses
 [cloro](https://cloro.dev)'s hosted MCP server.
 
 `/seo-cloro` sends one prompt to ChatGPT, Google AI Mode, Gemini or Bing AI
-Mode, or runs a Google search with its AI Overview. It returns the answer text
-and the sources the answer cites.
+Mode, or runs a Google or Bing search with its AI Overview. It returns the
+answer text and the sources the answer cites.
 
 ## Who maintains it
 
@@ -29,6 +29,7 @@ plans are on [cloro.dev/pricing](https://cloro.dev/pricing).
 | Bing AI Mode | 6 |
 | Google Search | 5 |
 | Google Search with AI Overview | 7 |
+| Bing Search | 5, or 7 with AI Overview |
 | Country and state lists | 0 |
 
 These include cloro's 2-credit surcharge for a synchronous request. A US state
@@ -82,7 +83,7 @@ connected.
 |---|---|
 | `/seo-cloro visibility <prompt> <brand-or-domain> [--country XX]` | Asks the prompt on ChatGPT, Google AI Mode, Gemini, Bing AI Mode and Google AI Overview, and reports where the brand is mentioned or cited |
 | `/seo-cloro ask <engine> <prompt> [--country XX]` | Asks one engine: `chatgpt`, `aimode`, `gemini` or `bing` |
-| `/seo-cloro serp <query> [--country XX] [--aio]` | Google organic results; `--aio` also extracts the AI Overview |
+| `/seo-cloro serp <query> [--country XX] [--aio] [--engine bing]` | Google organic results; `--aio` also extracts the AI Overview. `--engine bing` uses Bing Search (all countries except CN, KR and RU) |
 
 The default country is `US`. Claude also uses the skill on its own when you
 ask whether an AI engine recommends or cites a brand.
