@@ -1,15 +1,15 @@
 ---
 name: seo-cloro
-description: cloro AI answer and SERP scraper (community integration for Claude SEO). Sends a prompt to ChatGPT, Google AI Mode, Gemini or Bing AI Mode, or runs a Google search with its AI Overview, from a chosen country, and returns the answer text and the sources it cites. Use when the user asks whether an AI engine mentions or cites a brand, domain, or page for a prompt, or wants a live geo-targeted Google SERP. Triggers on "cloro", "does ChatGPT recommend", "AI answer for", "cited in AI Overview", "AI Mode answer".
+description: cloro AI answer and SERP scraper (community integration for Claude SEO). Sends a prompt to ChatGPT, Google AI Mode, Gemini or Bing AI Mode, or runs a Google or Bing search with its AI Overview, from a chosen country, and returns the answer text and the sources it cites. Use when the user asks whether an AI engine mentions or cites a brand, domain, or page for a prompt, or wants a live geo-targeted Google or Bing SERP. Triggers on "cloro", "does ChatGPT recommend", "AI answer for", "cited in AI Overview", "AI Mode answer".
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   original_author: "cloro (vendor, maintains this integration)"
 compatibility: "Requires the cloro hosted MCP server and a cloro API key (run install.sh or install.ps1 from https://github.com/cloro-dev/claude-seo-cloro)."
 ---
 
 # seo-cloro
 
-Live answers from AI search engines and Google, through cloro's hosted MCP
+Live answers from AI search engines, Google and Bing, through cloro's hosted MCP
 server (`https://mcp.cloro.dev/mcp`). Each call sends one prompt or query from
 one country and returns the parsed result: the answer text, the cited sources,
 and the credits charged.
@@ -34,7 +34,7 @@ user the integration is not installed and give the install steps above.
 |---|---|
 | `/seo-cloro visibility <prompt> <brand-or-domain> [--country XX]` | Run one prompt on ChatGPT, Google AI Mode, Gemini, Bing AI Mode and Google AI Overview. Report where the brand is mentioned or cited. |
 | `/seo-cloro ask <engine> <prompt> [--country XX]` | Run one prompt on one engine: `chatgpt`, `aimode`, `gemini` or `bing`. |
-| `/seo-cloro serp <query> [--country XX] [--aio]` | Google organic results; `--aio` also extracts the AI Overview. |
+| `/seo-cloro serp <query> [--country XX] [--aio] [--engine bing]` | Google organic results; `--aio` also extracts the AI Overview. `--engine bing` uses Bing Search instead of Google. |
 
 Default country is `US`. For other countries, use the ISO 3166-1 alpha-2 code.
 Call `list_countries` (free, optionally with `model`) when you are not sure an
@@ -54,6 +54,7 @@ sync request: the cost below includes the 2-credit sync surcharge.
 | Bing AI Mode | `scrape_bing_aimode` | 6 |
 | Google Search | `scrape_google` | 5 |
 | Google Search with AI Overview | `scrape_google` with `include.aioverview: true` | 7 |
+| Bing Search | `scrape_bing` | 5, or 7 with AI Overview (`include.aioverview: true`) |
 | Google redirect link | `resolve_google_redirect` | 1 (no surcharge) |
 | Country and state lists | `list_countries`, `list_states` | 0 |
 
@@ -62,8 +63,11 @@ Google page after the first adds 2; on ChatGPT, `include.rawResponse`,
 `searchQueries`, `ads`, or `shopping` add 2 once. Leave `include` unset unless
 the user asks for those fields.
 
-Bing AI Mode refuses a prompt longer than 3,500 characters after URL
-encoding. Non-Latin scripts reach the limit sooner. Keep Bing prompts short.
+Bing AI Mode and Bing Search refuse a prompt or query longer than 3,500
+characters after URL encoding. Non-Latin scripts reach the limit sooner. Keep
+Bing prompts short. Bing Search accepts all countries except CN, KR and RU.
+The country sets the Bing market. It has no state or device. `pages` (1 to 10)
+adds 2 credits for each page after the first.
 
 One `visibility` run costs 32 credits (7 + 6 + 6 + 6 + 7).
 
