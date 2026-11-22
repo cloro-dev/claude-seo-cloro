@@ -66,7 +66,8 @@ the user asks for those fields.
 Bing AI Mode and Bing Search refuse a prompt or query longer than 3,500
 characters after URL encoding. Non-Latin scripts reach the limit sooner. Keep
 Bing prompts short. Bing Search accepts all countries except CN, KR and RU.
-The country sets the Bing market. It has no state, device or pages.
+The country sets the Bing market. It has no state or device. `pages` (1 to 10)
+adds 2 credits for each page after the first.
 
 One `visibility` run costs 32 credits (7 + 6 + 6 + 6 + 7).
 
