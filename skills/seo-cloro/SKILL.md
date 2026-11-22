@@ -34,7 +34,7 @@ user the integration is not installed and give the install steps above.
 |---|---|
 | `/seo-cloro visibility <prompt> <brand-or-domain> [--country XX]` | Run one prompt on ChatGPT, Google AI Mode, Gemini, Bing AI Mode and Google AI Overview. Report where the brand is mentioned or cited. |
 | `/seo-cloro ask <engine> <prompt> [--country XX]` | Run one prompt on one engine: `chatgpt`, `aimode`, `gemini` or `bing`. |
-| `/seo-cloro serp <query> [--country XX] [--aio] [--engine bing]` | Google organic results; `--aio` also extracts the AI Overview. `--engine bing` uses Bing Search instead of Google. |
+| `/seo-cloro serp <query> [--country XX] [--aio] [--engine bing]` | Google organic results; `--aio` also extracts the AI Overview. `--engine bing` uses Bing Search instead of Google: organic results, ads and, with `--aio`, the AI Overview. |
 
 Default country is `US`. For other countries, use the ISO 3166-1 alpha-2 code.
 Call `list_countries` (free, optionally with `model`) when you are not sure an
@@ -66,7 +66,9 @@ the user asks for those fields.
 Bing AI Mode and Bing Search refuse a prompt or query longer than 3,500
 characters after URL encoding. Non-Latin scripts reach the limit sooner. Keep
 Bing prompts short. Bing Search accepts all countries except CN, KR and RU.
-The country sets the Bing market. It has no state or device. `pages` (1 to 10)
+The country sets the Bing market. It has no state or device. Each request
+returns the organic results and the ads, and `include.aioverview: true` adds the
+AI Overview. The ads cost no extra credits. `pages` (1 to 10)
 adds 2 credits for each page after the first.
 
 One `visibility` run costs 32 credits (7 + 6 + 6 + 6 + 7).
